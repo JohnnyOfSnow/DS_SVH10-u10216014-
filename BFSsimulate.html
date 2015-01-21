@@ -97,12 +97,19 @@
 					<td><input type = "button"  value = "清除" onClick = "clearAdjMatrix();"></td> 
 				</tr>
 			</table>
+			<table>
+				<tr>
+					<td><p id="state"></p></td>
+				</tr>
+				
+			</table>
 		</form>
 
 		<script>
 			var mode = -1; // 0 is simulate mode  , 1 is test mode
 			var graph = -1; // 0 is undirected graph , 1 is directed graph
 			var BFSstep = 0; // control the BFS step for the next button use.
+			var wrongInput = 0;
 			var adjMatrix = [];
 			adjMatrix[0] = [0,0,0,0,0];
 			adjMatrix[1] = [0,0,0,0,0];
@@ -113,6 +120,7 @@
 			function modeChoice(){
 				var form = document.getElementById("BFSForm");
 				var result = document.getElementById("mode");
+				clearAdjMatrix();
 			
 				for (var i = 0; i < form.modeChoice1.length; i++) {
 					if ( form.modeChoice1[i].checked ) {
@@ -126,7 +134,8 @@
 			function graphChoice(){
 				var form = document.getElementById("BFSForm");
 				var result = document.getElementById("graph");
-			
+				clearAdjMatrix();
+				
 				for (var i = 0; i < form.graph1.length; i++) {
 					if ( form.graph1[i].checked ) {
 						graph = i;
@@ -156,8 +165,10 @@
 				graph = -1;
 			}
 
-			function randomGenerateAdjMatrix(){
+			function decideAdjMatrix(){
 				var count = 0;
+				wrongInput = 0;
+				document.getElementById("state").innerHTML = "";
 				if(mode == 0 || mode == 1){ // simulate and test
 					if(graph == 0){ // undirected graph
 						for(var i = 0; i < 3; i++){
@@ -166,10 +177,12 @@
 									count = count + 1;
 									continue; // for adj Matrix when i == j must 0
 								}else{
-									var n1 = Math.floor(Math.random()*2);
 									var input = document.getElementById(count);
-									input.value = n1;
-									adjMatrix[i][j] = n1;
+									var userInput = eval(input.value);
+									if(userInput != 0 && userInput != 1){
+										wrongInput = 1;
+									}
+									adjMatrix[i][j] = userInput;
 									count = count + 1;
 								}
 							}
@@ -182,11 +195,100 @@
 									continue; // for adj Matrix when i == j must 0
 								}else{
 									var input = document.getElementById(count);
+									var userInput = eval(input.value);
+									if(userInput != 0 && userInput != 1){
+										wrongInput = 1;
+									}
+									adjMatrix[i][j] = userInput;
+									count = count + 1;
+								}
+							}
+						}
+
+						count = 0;
+						for(var i = 0; i < 5; i++){
+							for(var j = 0; j < adjMatrix[i].length; j++){
+								if(i == j){
+									count = count + 1;
+									continue; // for adj Matrix when i == j must 0
+								}else{
+									if(adjMatrix[i][j] != adjMatrix[j][i]){ // undirected graph is a symmetric matrix.
+										wrongInput = 1;
+									}
+									
+									count = count + 1;
+								}
+							}
+						}
+
+						if(wrongInput == 1){
+							clearAdjMatrix(); // User Input the wrong data.
+							document.getElementById("state").innerHTML = "你輸入的資料不正確";
+						}
+					}else if(graph == 1){
+						for(var i = 0; i < 5; i++){
+							for(var j = 0; j < adjMatrix[i].length; j++){
+								if(i == j){
+									count = count + 1;
+									continue; // for adj Matrix when i == j must 0
+								}else{
+									var input = document.getElementById(count);
+									var userInput = eval(input.value);
+									if(userInput != 0 && userInput != 1){
+										wrongInput = 1;
+									}
+									adjMatrix[i][j] = userInput;
+									count = count + 1;
+								}
+							}
+						}
+						if(wrongInput == 1){
+							clearAdjMatrix(); // User Input the wrong data.
+							document.getElementById("state").innerHTML = "你輸入的資料不正確";
+						}
+					}else{
+
+					}
+				}else{
+
+				}
+			}
+
+			function randomGenerateAdjMatrix(){
+				var count = 0;
+				document.getElementById("state").innerHTML = "";
+				if(mode == 0 || mode == 1){ // simulate and test
+					if(graph == 0){ // undirected graph
+						for(var i = 0; i < 5; i++){
+							for(var j = i; j < 5; j++){
+								if(i == j){
+									count = count + 1;
+									continue; // for adj Matrix when i == j must 0
+								}else{
+									var n1 = Math.floor(Math.random()*2);
+									var input = document.getElementById(count);
+									input.value = n1;
+									adjMatrix[i][j] = n1;
+									count = count + 1;
+								}
+							}
+							count = count + i + 1;
+						}
+
+						count = 5;
+						for(var i = 1; i < 5; i++){
+							for(var j = 0; j < i; j++){
+								if(i == j){
+									count = count + 1;
+									continue; // for adj Matrix when i == j must 0
+								}else{
+									var input = document.getElementById(count);
 									input.value = adjMatrix[j][i];
 									adjMatrix[i][j] = adjMatrix[j][i];
 									count = count + 1;
 								}
 							}
+							count = count + (5 - i);
 						}
 					}else if(graph == 1){
 						for(var i = 0; i < 5; i++){
@@ -227,6 +329,12 @@
 						}
 					}
 				}
+				document.getElementById("0").value = 0;
+				document.getElementById("6").value = 0;
+				document.getElementById("12").value = 0;
+				document.getElementById("18").value = 0;
+				document.getElementById("24").value = 0;
+
 			}
 
 		</script>
