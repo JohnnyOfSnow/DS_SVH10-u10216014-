@@ -14,110 +14,127 @@
 	
 	<body>
 		<table>
+				<tr>
+					<td><p>這是一個模擬BFS(Breadth-first search)的程式</p></td>
+				</tr>
+				<tr>
+					<td><p>你需先按下，模擬模式，或是測驗模式，接著，你需再按下建圖形時要用undirected graph(無向圖)或是directed graph(有向圖)</p></td>
+				</tr>
+						
+					<tr>
+					<td><p>1.在模擬模式下，你可以自行輸入要放入鄰接矩陣的資料(輸入0表示不相接，輸入1表示相接)，或是按下隨機產生，然後可以按下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
+				</tr>
+						
+				<tr>
+					<td><p>2.在測驗模式下，請先設定好圖形後，按下開始出題，根據隨機產生的資料，按照BFS的方式，將答案填入格子中，之後按下確認答案。錯的格子將會以黃色背景顯示。</p></td>
+				</tr>
+		</table>
+		
+		<hr>
+		<table>
 			<tr>
-				<td><p>這是一個模擬BFS(Breadth-first search)的程式</p></td>
-			</tr>
-			<tr>
-				<td><p>你需先按下，模擬模式，或是測驗模式，接著，你需再按下建圖形時要用undirected graph(無向圖)或是directed graph(有向圖)</p></td>
-			</tr>
-			
-			<tr>
-				<td><p>1.在模擬模式下，你可以自行輸入要放入鄰接矩陣的資料(輸入0表示不相接，輸入1表示相接)，或是按下隨機產生，然後可以按下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
-			</tr>
-			
-			<tr>
-				<td><p>2.在測驗模式下，請先設定好圖形後，按下開始出題，根據隨機產生的資料，按照BFS的方式，將答案填入格子中，之後按下確認答案。錯的格子將會以黃色背景顯示。</p></td>
+				<td>
+					
+					<form name = "BFSForm" id="BFSForm" >
+						<table>
+						<tr>
+							<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式" onClick = "modeChoice();">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式" onClick = "modeChoice();">測驗模式   </td>
+							<td><input type = "button"  value = "清除" onClick = "modeClear();"></td><td><p id="mode"></p></td>
+
+						</tr>
+						<tr>
+							<td><p>2.設定圖形模式</p></td>  <td><input type="radio" name="graph1" value="undirected graph" onClick = "graphChoice();">undirected graph</td>  <td><input type="radio" name="graph1" value="directed graph" onClick = "graphChoice();">directed graph   </td>
+							<td><input type = "button"  value = "清除" onClick = "graphClear();"></td><td><p id="graph"></p></td>
+						</tr>
+						</table>
+
+						<table>
+							<tr>
+								<td>3.輸入資料：</td>
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<td></td>
+								<td><p>0</p></td>
+								<td><p>1</p></td>
+								<td><p>2</p></td>
+								<td><p>3</p></td>
+								<td><p>4</p></td>
+								<td rowspan = "6"><canvas id = "myGraph" width = 300 height = 300>Your browser does not support</canvas></td>
+							</tr>
+							<tr>
+								<td><p>0</p></td>
+								<td><input type=text value="0" id=0 size="5" readonly="readonly"></td>
+								<td><input type=text value="" id=1 size="5"></td>
+								<td><input type=text value="" id=2 size="5"></td>
+								<td><input type=text value="" id=3 size="5"></td>
+								<td><input type=text value="" id=4 size="5"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><p>1</p></td>
+								<td><input type=text value="" id=5 size="5"></td>
+								<td><input type=text value="0" id=6 size="5" readonly="readonly"></td>
+								<td><input type=text value="" id=7 size="5"></td>
+								<td><input type=text value="" id=8 size="5"></td>
+								<td><input type=text value="" id=9 size="5"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><p>2</p></td>
+								<td><input type=text value="" id=10 size="5"></td>
+								<td><input type=text value="" id=11 size="5"></td>
+								<td><input type=text value="0" id=12 size="5" readonly="readonly"></td>
+								<td><input type=text value="" id=13 size="5"></td>
+								<td><input type=text value="" id=14 size="5"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><p>3</p></td>
+								<td><input type=text value="" id=15 size="5"></td>
+								<td><input type=text value="" id=16 size="5"></td>
+								<td><input type=text value="" id=17 size="5"></td>
+								<td><input type=text value="0" id=18 size="5" readonly="readonly"></td>
+								<td><input type=text value="" id=19 size="5"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td><p>4</p></td>
+								<td><input type=text value="" id=20 size="5"></td>
+								<td><input type=text value="" id=21 size="5"></td>
+								<td><input type=text value="" id=22 size="5"></td>
+								<td><input type=text value="" id=23 size="5"></td>
+								<td><input type=text value="0" id=24 size="5" readonly="readonly"></td>
+								<td></td>
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<td><input type = "button"  value = "輸入完成" onClick = "decideAdjMatrix();"></td> 
+								<td><input type = "button"  value = "隨機產生" onClick = "randomGenerateAdjMatrix();"></td>
+								<td><input type = "button"  value = "清除" onClick = "clearAdjMatrix();"></td> 
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<td><p id="state"></p></td>
+							</tr>
+							
+						</table>
+					</form>
+				</td>
+
+				<td>
+					<table>
+						<tr>
+							<td><p>4.現在步驟：</p><textarea name="Content" style="width:700px;height:100px;" id=hashTableArea readonly="readonly"></textarea></td>
+						</tr>
+					</table>
+				</td>
 			</tr>
 		</table>
-		<hr>
-		<hr>
-		<form name = "BFSForm" id="BFSForm" >
-			<table>
-			<tr>
-				<td><p>1.設定模式:</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式" onClick = "modeChoice();">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式" onClick = "modeChoice();">測驗模式   </td>
-				<td><input type = "button"  value = "清除" onClick = "modeClear();"></td><td><p id="mode"></p></td>
-			</tr>
-			<tr>
-				<td><p>2.設定圖形模式</p></td>  <td><input type="radio" name="graph1" value="undirected graph" onClick = "graphChoice();">undirected graph</td>  <td><input type="radio" name="graph1" value="directed graph" onClick = "graphChoice();">directed graph   </td>
-				<td><input type = "button"  value = "清除" onClick = "graphClear();"></td><td><p id="graph"></p></td>
-			</tr>
-			</table>
-
-			<table>
-				<tr>
-					<td>3.輸入資料：</td>
-				</tr>
-			</table>
-			<table>
-				<tr>
-					<td></td>
-					<td><p>0</p></td>
-					<td><p>1</p></td>
-					<td><p>2</p></td>
-					<td><p>3</p></td>
-					<td><p>4</p></td>
-					<td rowspan = "6"><canvas id = "myGraph" width = 300 height = 300>Your browser does not support</canvas></td>
-				</tr>
-				<tr>
-					<td><p>0</p></td>
-					<td><input type=text value="0" id=0 size="5" readonly="readonly"></td>
-					<td><input type=text value="" id=1 size="5"></td>
-					<td><input type=text value="" id=2 size="5"></td>
-					<td><input type=text value="" id=3 size="5"></td>
-					<td><input type=text value="" id=4 size="5"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><p>1</p></td>
-					<td><input type=text value="" id=5 size="5"></td>
-					<td><input type=text value="0" id=6 size="5" readonly="readonly"></td>
-					<td><input type=text value="" id=7 size="5"></td>
-					<td><input type=text value="" id=8 size="5"></td>
-					<td><input type=text value="" id=9 size="5"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><p>2</p></td>
-					<td><input type=text value="" id=10 size="5"></td>
-					<td><input type=text value="" id=11 size="5"></td>
-					<td><input type=text value="0" id=12 size="5" readonly="readonly"></td>
-					<td><input type=text value="" id=13 size="5"></td>
-					<td><input type=text value="" id=14 size="5"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><p>3</p></td>
-					<td><input type=text value="" id=15 size="5"></td>
-					<td><input type=text value="" id=16 size="5"></td>
-					<td><input type=text value="" id=17 size="5"></td>
-					<td><input type=text value="0" id=18 size="5" readonly="readonly"></td>
-					<td><input type=text value="" id=19 size="5"></td>
-					<td></td>
-				</tr>
-				<tr>
-					<td><p>4</p></td>
-					<td><input type=text value="" id=20 size="5"></td>
-					<td><input type=text value="" id=21 size="5"></td>
-					<td><input type=text value="" id=22 size="5"></td>
-					<td><input type=text value="" id=23 size="5"></td>
-					<td><input type=text value="0" id=24 size="5" readonly="readonly"></td>
-					<td></td>
-				</tr>
-			</table>
-			<table>
-				<tr>
-					<td><input type = "button"  value = "輸入完成" onClick = "decideAdjMatrix();"></td> 
-					<td><input type = "button"  value = "隨機產生" onClick = "randomGenerateAdjMatrix();"></td>
-					<td><input type = "button"  value = "清除" onClick = "clearAdjMatrix();"></td> 
-				</tr>
-			</table>
-			<table>
-				<tr>
-					<td><p id="state"></p></td>
-				</tr>
-				
-			</table>
-		</form>
+		
 
 		<script>
 			var mode = -1; // 0 is simulate mode  , 1 is test mode
@@ -153,7 +170,7 @@
 				for (var i = 0; i < form.graph1.length; i++) {
 					if ( form.graph1[i].checked ) {
 						graph = i;
-						result.innerHTML = "you selected " + form.graph1[i].value;
+						result.innerHTML = form.graph1[i].value;
 						break;
 					}
 				}
