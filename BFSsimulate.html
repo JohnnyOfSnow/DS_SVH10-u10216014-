@@ -1,6 +1,14 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>BFS(Breadth-first search)</title>
+		<style>
+		
+		canvas{
+			border: solid 1px green;
+		}
+		
+	</style>
 		
 	</head>
 	
@@ -48,6 +56,7 @@
 					<td><p>2</p></td>
 					<td><p>3</p></td>
 					<td><p>4</p></td>
+					<td rowspan = "6"><canvas id = "myGraph" width = 300 height = 300>Your browser does not support</canvas></td>
 				</tr>
 				<tr>
 					<td><p>0</p></td>
@@ -56,6 +65,7 @@
 					<td><input type=text value="" id=2 size="5"></td>
 					<td><input type=text value="" id=3 size="5"></td>
 					<td><input type=text value="" id=4 size="5"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><p>1</p></td>
@@ -64,6 +74,7 @@
 					<td><input type=text value="" id=7 size="5"></td>
 					<td><input type=text value="" id=8 size="5"></td>
 					<td><input type=text value="" id=9 size="5"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><p>2</p></td>
@@ -72,6 +83,7 @@
 					<td><input type=text value="0" id=12 size="5" readonly="readonly"></td>
 					<td><input type=text value="" id=13 size="5"></td>
 					<td><input type=text value="" id=14 size="5"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><p>3</p></td>
@@ -80,6 +92,7 @@
 					<td><input type=text value="" id=17 size="5"></td>
 					<td><input type=text value="0" id=18 size="5" readonly="readonly"></td>
 					<td><input type=text value="" id=19 size="5"></td>
+					<td></td>
 				</tr>
 				<tr>
 					<td><p>4</p></td>
@@ -88,6 +101,7 @@
 					<td><input type=text value="" id=22 size="5"></td>
 					<td><input type=text value="" id=23 size="5"></td>
 					<td><input type=text value="0" id=24 size="5" readonly="readonly"></td>
+					<td></td>
 				</tr>
 			</table>
 			<table>
@@ -166,6 +180,7 @@
 			}
 
 			function decideAdjMatrix(){
+				clearGraph();
 				var count = 0;
 				wrongInput = 0;
 				document.getElementById("state").innerHTML = "";
@@ -224,6 +239,8 @@
 						if(wrongInput == 1){
 							clearAdjMatrix(); // User Input the wrong data.
 							document.getElementById("state").innerHTML = "你輸入的資料不正確";
+						}else{
+							drawGraph();
 						}
 					}else if(graph == 1){
 						for(var i = 0; i < 5; i++){
@@ -245,6 +262,8 @@
 						if(wrongInput == 1){
 							clearAdjMatrix(); // User Input the wrong data.
 							document.getElementById("state").innerHTML = "你輸入的資料不正確";
+						}else{
+							drawGraph();
 						}
 					}else{
 
@@ -255,6 +274,7 @@
 			}
 
 			function randomGenerateAdjMatrix(){
+				clearGraph();
 				var count = 0;
 				document.getElementById("state").innerHTML = "";
 				if(mode == 0 || mode == 1){ // simulate and test
@@ -308,12 +328,15 @@
 					}else{
 
 					}
+					drawGraph();
 				}else{
 
 				}
 			}// end function randomGenerateAdjMatrix()
 
 			function clearAdjMatrix(){
+				
+				
 				var count = 0;
 				for(var i = 0; i < 5; i++){
 					for(var j = 0; j < adjMatrix[i].length; j++){
@@ -334,7 +357,125 @@
 				document.getElementById("12").value = 0;
 				document.getElementById("18").value = 0;
 				document.getElementById("24").value = 0;
+				
 
+				clearGraph();
+
+
+			}
+
+			function drawGraph(){
+				var canvas = document.getElementById("myGraph");
+				var ctx = canvas.getContext("2d");
+
+				ctx.beginPath();
+				ctx.arc(60,40,30,0,2 * 3.14); // the 1 circle
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(220,40,30,0,2 * 3.14); // the 2 circle
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(60,150,30,0,2 * 3.14); // the 3 circle
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(220,150,30,0,2 * 3.14); // the 4 circle
+				ctx.stroke();
+				ctx.beginPath();
+				ctx.arc(140,240,30,0,2 * 3.14); // the 5 circle
+				ctx.stroke();
+
+				
+				ctx.fillText("0",20,20); // write the circle number.
+				ctx.fillText("1",260,20);
+				ctx.fillText("2",20,130);
+				ctx.fillText("3",260,130);
+				ctx.fillText("4",180,260);
+
+				if(graph == 0){
+					if(adjMatrix[0][1] == 1){ // circle 0 to 1
+						ctx.beginPath();
+						ctx.moveTo(90,40);
+						ctx.lineTo(190,40);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[0][2] == 1){ // circle 0 to 2
+						ctx.beginPath();
+						ctx.moveTo(60,70);
+						ctx.lineTo(60,120);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[0][3] == 1){ // circle 0 to 3
+						ctx.beginPath();
+						ctx.moveTo(80,60);
+						ctx.lineTo(198,132);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[0][4] == 1){ // circle 0 to 4
+						ctx.beginPath();
+						ctx.moveTo(80,60);
+						ctx.lineTo(140,210);
+						ctx.stroke();
+					}
+
+
+					if(adjMatrix[1][2] == 1){ // circle 1 to 2
+						ctx.beginPath();
+						ctx.moveTo(205,63);
+						ctx.lineTo(87,135);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[1][3] == 1){ // circle 1 to 3
+						ctx.beginPath();
+						ctx.moveTo(220,70);
+						ctx.lineTo(220,120);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[1][4] == 1){ // circle 1 to 4
+						ctx.beginPath();
+						ctx.moveTo(205,63);
+						ctx.lineTo(140,210);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[2][3] == 1){ // circle 2 to 3
+						ctx.beginPath();
+						ctx.moveTo(90,150);
+						ctx.lineTo(190,150);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[2][4] == 1){ // circle 2 to 4
+						ctx.beginPath();
+						ctx.moveTo(80,170);
+						ctx.lineTo(140,210);
+						ctx.stroke();
+					}
+
+					if(adjMatrix[3][4] == 1){ // circle 3 to 4
+						ctx.beginPath();
+						ctx.moveTo(205,175);
+						ctx.lineTo(158,215);
+						ctx.stroke();
+					}
+
+
+
+					
+				}else{
+
+				}
+
+			}
+
+			function clearGraph(){
+				var canvas = document.getElementById("myGraph");
+				var ctx = canvas.getContext("2d");
+				ctx.clearRect(0,0,canvas.width,canvas.height);
 			}
 
 		</script>
