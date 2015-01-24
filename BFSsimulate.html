@@ -13,24 +13,7 @@
 	</head>
 	
 	<body>
-		<table>
-				<tr>
-					<td><p>這是一個模擬BFS(Breadth-first search)的程式</p></td>
-				</tr>
-				<tr>
-					<td><p>你需先按下，模擬模式，或是測驗模式，接著，你需再按下建圖形時要用undirected graph(無向圖)或是directed graph(有向圖)</p></td>
-				</tr>
-						
-					<tr>
-					<td><p>1.在模擬模式下，你可以自行輸入要放入鄰接矩陣的資料(輸入0表示不相接，輸入1表示相接)，或是按下隨機產生，然後可以按下一步(一次做一步)，一次做完，全部清除(需再從上面重新設定)</p></td>
-				</tr>
-						
-				<tr>
-					<td><p>2.在測驗模式下，請先設定好圖形後，按下開始出題，根據隨機產生的資料，按照BFS的方式，將答案填入格子中，之後按下確認答案。錯的格子將會以黃色背景顯示。</p></td>
-				</tr>
-		</table>
 		
-		<hr>
 		<table>
 			<tr>
 				<td>
@@ -61,7 +44,7 @@
 								<td><p>2</p></td>
 								<td><p>3</p></td>
 								<td><p>4</p></td>
-								<td rowspan = "6"><canvas id = "myGraph" width = 300 height = 300>Your browser does not support</canvas></td>
+								<td rowspan = "7"><canvas id = "myGraph" width = 280 height = 280>Your browser does not support</canvas></td>
 							</tr>
 							<tr>
 								<td><p>0</p></td>
@@ -122,15 +105,23 @@
 							</tr>
 							
 						</table>
+						<table>
+							<tr>
+								<td><p>4.現在步驟：</p><textarea name="Content" style="width:550px;height:100px;" id=hashTableArea readonly="readonly"></textarea></td>
+							</tr>
+						</table>
+						<table>
+							<tr>
+								<td><input type = "button"  value = "下一步" onClick = "next();"></td> 
+								<td><input type = "button"  value = "一次做完" onClick = "doAll();"></td>
+								<td><input type = "button"  value = "全部清除" onClick = "clearAll();"></td> 
+							</tr>
+						</table>
 					</form>
 				</td>
 
 				<td>
-					<table>
-						<tr>
-							<td><p>4.現在步驟：</p><textarea name="Content" style="width:700px;height:100px;" id=hashTableArea readonly="readonly"></textarea></td>
-						</tr>
-					</table>
+					
 				</td>
 			</tr>
 		</table>
@@ -141,12 +132,14 @@
 			var graph = -1; // 0 is undirected graph , 1 is directed graph
 			var BFSstep = 0; // control the BFS step for the next button use.
 			var wrongInput = 0;
-			var adjMatrix = [];
+			var adjMatrix = []; // A two dimision array adjMatrix represent the graph.
 			adjMatrix[0] = [0,0,0,0,0];
 			adjMatrix[1] = [0,0,0,0,0];
 			adjMatrix[2] = [0,0,0,0,0];
 			adjMatrix[3] = [0,0,0,0,0];
 			adjMatrix[4] = [0,0,0,0,0];
+
+			var circleDiscover = new Array(0,0,0,0,0);// record the circle wether is discovered.
 			
 			function modeChoice(){
 				var form = document.getElementById("BFSForm");
@@ -385,21 +378,102 @@
 				var canvas = document.getElementById("myGraph");
 				var ctx = canvas.getContext("2d");
 
-				ctx.beginPath();
-				ctx.arc(60,40,30,0,2 * 3.14); // the 1 circle
-				ctx.stroke();
-				ctx.beginPath();
-				ctx.arc(220,40,30,0,2 * 3.14); // the 2 circle
-				ctx.stroke();
-				ctx.beginPath();
-				ctx.arc(60,150,30,0,2 * 3.14); // the 3 circle
-				ctx.stroke();
-				ctx.beginPath();
-				ctx.arc(220,150,30,0,2 * 3.14); // the 4 circle
-				ctx.stroke();
-				ctx.beginPath();
-				ctx.arc(140,240,30,0,2 * 3.14); // the 5 circle
-				ctx.stroke();
+				if(circleDiscover[0] == 0){
+					ctx.beginPath();
+					ctx.arc(60,40,30,0,2 * 3.14); // the 0 circle
+					ctx.stroke();
+				}else if(circleDiscover[0] == 1){
+					ctx.beginPath();
+					ctx.arc(60,40,30,0,2 * 3.14); // the 0 circle
+					ctx.strokeStyle = "red";
+					ctx.stroke();
+					ctx.strokeStyle = "black";
+				}else if(circleDiscover[0] == 2){
+					ctx.beginPath();
+					ctx.arc(60,40,30,0,2 * 3.14); // the 0 circle
+					ctx.fillStyle = "blue";
+					ctx.fill();
+				}else{
+
+				}
+
+				if(circleDiscover[1] == 0){
+					ctx.beginPath();
+					ctx.arc(220,40,30,0,2 * 3.14); // the 1 circle
+					ctx.stroke();
+				}else if(circleDiscover[1] == 1){
+					ctx.beginPath();
+					ctx.arc(220,40,30,0,2 * 3.14); // the 1 circle
+					ctx.strokeStyle = "red";
+					ctx.stroke();
+					ctx.strokeStyle = "black";
+				}else if(circleDiscover[1] == 2){
+					ctx.beginPath();
+					ctx.arc(220,40,30,0,2 * 3.14); // the 1 circle
+					ctx.fillStyle = "blue";
+					ctx.fill();
+				}else{
+					
+				}
+
+				if(circleDiscover[2] == 0){
+					ctx.beginPath();
+					ctx.arc(60,150,30,0,2 * 3.14); // the 2 circle
+					ctx.stroke();
+				}else if(circleDiscover[2] == 1){
+					ctx.beginPath();
+					ctx.arc(60,150,30,0,2 * 3.14); // the 2 circle
+					ctx.strokeStyle = "red";
+					ctx.stroke();
+					ctx.strokeStyle = "black";
+				}else if(circleDiscover[2] == 2){
+					ctx.beginPath();
+					ctx.arc(60,150,30,0,2 * 3.14); // the 2 circle
+					ctx.fillStyle = "blue";
+					ctx.fill();
+				}else{
+					
+				}
+
+				if(circleDiscover[3] == 0){
+					ctx.beginPath();
+					ctx.arc(220,150,30,0,2 * 3.14); // the 3 circle
+					ctx.stroke();
+				}else if(circleDiscover[3] == 1){
+					ctx.beginPath();
+					ctx.arc(220,150,30,0,2 * 3.14); // the 3 circle
+					ctx.strokeStyle = "red";
+					ctx.stroke();
+					ctx.strokeStyle = "black";
+				}else if(circleDiscover[3] == 2){
+					ctx.beginPath();
+					ctx.arc(220,150,30,0,2 * 3.14); // the 3 circle
+					ctx.fillStyle = "blue";
+					ctx.fill();
+				}else{
+					
+				}
+
+				if(circleDiscover[4] == 0){
+					ctx.beginPath();
+					ctx.arc(140,240,30,0,2 * 3.14); // the 4 circle
+					ctx.stroke();
+				}else if(circleDiscover[4] == 1){
+					ctx.beginPath();
+					ctx.arc(140,240,30,0,2 * 3.14); // the 4 circle
+					ctx.strokeStyle = "red";
+					ctx.stroke();
+					ctx.strokeStyle = "black";
+				}else if(circleDiscover[4] == 2){
+					ctx.beginPath();
+					ctx.arc(140,240,30,0,2 * 3.14); // the 4 circle
+					ctx.fillStyle = "blue";
+					ctx.fill();
+				}else{
+					
+				}
+
+
 
 				
 				ctx.fillText("0",20,20); // write the circle number.
