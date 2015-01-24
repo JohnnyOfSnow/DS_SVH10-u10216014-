@@ -350,6 +350,7 @@
 					}else{
 
 					}
+					process();
 				}else{
 
 				}
@@ -416,6 +417,7 @@
 				}else{
 
 				}
+				process();
 			}// end function randomGenerateAdjMatrix()
 
 			function clearAdjMatrix(){	
@@ -443,6 +445,7 @@
 				
 				isDecideAdjMatrix = 0;
 				clearGraph();
+				process();
 			}// end function clearAdjMatrix()
 
 			function drawGraph(){
@@ -1198,20 +1201,26 @@
 
 			function process(){
 				if(mode == 0){
-					document.getElementById("nowState").innerHTML = "4.測驗模式指示框";
-					document.getElementById("allState").innerHTML = "6.測驗模式結果框";
+					document.getElementById("nowState").innerHTML = "4.現在步驟：";
+					document.getElementById("allState").innerHTML = "6.所有步驟：";
 					if(graph == 0 || graph == 1){
-						document.getElementById("chooseGraph").style.backgroundColor = "#fff";
-						document.getElementById("currentStepBFS").innerHTML = "請請移動游標到3.輸入鄰接矩陣資料\n--->你可以自行輸入資料後按下輸入完成鈕\n--->或是按下隨機產生鈕，產生一個鄰接矩陣。";
-						document.getElementById("setAdj").style.backgroundColor = "#ff6";
+						if(isDecideAdjMatrix == 1){
+							document.getElementById("setAdj").style.backgroundColor = "#fff";
+							document.getElementById("simulateUse").style.backgroundColor = "#ff6";
+							document.getElementById("currentStepBFS").innerHTML = "你已經設定好鄰接矩陣了，並且在綠框中看到你的鄰接矩陣畫成圖的樣子\n現在，你可以將游標移到模擬模式用按鈕，進行下一步、一次做完的按鈕操作";
+						}else{
+							document.getElementById("chooseGraph").style.backgroundColor = "#fff";
+							document.getElementById("currentStepBFS").innerHTML = "請請移動游標到3.輸入鄰接矩陣資料\n--->你可以自行輸入資料後按下輸入完成鈕\n--->或是按下隨機產生鈕，產生一個鄰接矩陣。";
+							document.getElementById("setAdj").style.backgroundColor = "#ff6";
+						}
 					}else{
 						document.getElementById("chooseMode").style.backgroundColor = "#fff";
 						document.getElementById("chooseGraph").style.backgroundColor = "#ff6";
 						document.getElementById("currentStepBFS").innerHTML = "請選擇圖形模式(undirected graph 無向圖  或是  directed graph  有向圖)";
 					}
 				}else if(mode == 1){
-					document.getElementById("nowState").innerHTML = "4.現在步驟：";
-					document.getElementById("allState").innerHTML = "6.所有步驟：";
+					document.getElementById("nowState").innerHTML = "4.測驗模式指示框";
+					document.getElementById("allState").innerHTML = "6.測驗模式結果框";
 					if(graph == 0 || graph == 1){
 						document.getElementById("chooseGraph").style.backgroundColor = "#fff";
 						document.getElementById("currentStepBFS").innerHTML = "請移動游標到測驗模式用按鈕，按下開始出題";
