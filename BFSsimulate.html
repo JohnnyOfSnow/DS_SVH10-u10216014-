@@ -625,10 +625,35 @@
 							BFSstep = 1;
 
 						}else if(BFSstep == 1){
-							
+
 						}
 					}
 				}
+			}
+
+			function clearAll(){
+				document.getElementById("0circledu").value = "";
+				document.getElementById("0circlepiu").value = "";
+				document.getElementById("1circledu").value = "";
+				document.getElementById("1circlepiu").value = "";
+				document.getElementById("2circledu").value = "";
+				document.getElementById("2circlepiu").value = "";
+				document.getElementById("3circledu").value = "";
+				document.getElementById("3circlepiu").value = "";
+				document.getElementById("4circledu").value = "";
+				document.getElementById("4circlepiu").value = "";
+				document.getElementById("currentStepBFS").innerHTML = "";
+				BFSstep = 0;
+				mode = -1;
+				graph = -1;
+				clearAdjMatrix();
+				wrongInput = 0;
+				for(var k = 0; k < circleDiscover.length; k++){
+					circleDiscover[k] = 0;
+				}
+				modeClear();
+				graphClear();
+
 			}
 
 		</script>
