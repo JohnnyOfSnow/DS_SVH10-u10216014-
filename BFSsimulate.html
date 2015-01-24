@@ -3,21 +3,16 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>BFS(Breadth-first search)</title>
 		<style>
-		
-		canvas{
-			border: solid 1px green;
-		}
-		
-	</style>
-		
+			canvas{
+				border: solid 1px green;
+			}
+		</style>
 	</head>
 	
 	<body>
-		
 		<table>
 			<tr>
 				<td>
-					
 					<form name = "BFSForm" id="BFSForm" >
 						<table>
 						<tr>
@@ -152,9 +147,9 @@
 			</tr>
 		</table>
 		
-
 		<script>
 
+			// The function will be invoke, when you open the HTML file
 			window.onload = function (){
 				clearAll();
 			}
@@ -164,7 +159,7 @@
 			var BFSstep = 0; // control the BFS step for the next button use.
 			var wrongInput = 0;
 			var isDecideAdjMatrix = 0;
-			var adjMatrix = []; // A two dimision array adjMatrix represent the graph.
+			var adjMatrix = []; // A two dimension array adjMatrix represents the graph.
 			adjMatrix[0] = [0,0,0,0,0];
 			adjMatrix[1] = [0,0,0,0,0];
 			adjMatrix[2] = [0,0,0,0,0];
@@ -206,7 +201,7 @@
 						break;
 					}
 				}
-			}
+			}// end function modeChoice()
 			
 			function graphChoice(){
 				var form = document.getElementById("BFSForm");
@@ -220,7 +215,7 @@
 						break;
 					}
 				}
-			}
+			}// end function graphChoice()
 			
 			function modeClear(){
 				var form = document.getElementById("BFSForm");
@@ -230,7 +225,7 @@
 				}
 				result.innerHTML = "";
 				mode = -1;
-			}
+			}// end function modeClear()
 			
 			function graphClear(){
 				var form = document.getElementById("BFSForm");
@@ -240,7 +235,7 @@
 				}
 				result.innerHTML = "";
 				graph = -1;
-			}
+			}// end function graphClear()
 
 			function decideAdjMatrix(){
 				clearGraph();
@@ -336,7 +331,7 @@
 				}else{
 
 				}
-			}
+			}// end function decideAdjMatrix()
 
 			function randomGenerateAdjMatrix(){
 				clearGraph();
@@ -401,9 +396,7 @@
 				}
 			}// end function randomGenerateAdjMatrix()
 
-			function clearAdjMatrix(){
-				
-				
+			function clearAdjMatrix(){	
 				var count = 0;
 				for(var i = 0; i < 5; i++){
 					for(var j = 0; j < adjMatrix[i].length; j++){
@@ -419,6 +412,7 @@
 						}
 					}
 				}
+
 				document.getElementById("0").value = 0;
 				document.getElementById("6").value = 0;
 				document.getElementById("12").value = 0;
@@ -427,21 +421,24 @@
 				
 				isDecideAdjMatrix = 0;
 				clearGraph();
-
-
-			}
+			}// end function clearAdjMatrix()
 
 			function drawGraph(){
-				var canvas = document.getElementById("myGraph");
-				var ctx = canvas.getContext("2d");
+				var canvas = document.getElementById("myGraph"); // Catch the canvas
+				var ctx = canvas.getContext("2d"); // Draw all object in two dimension
 
-				ctx.font = "14px Verdana";
+				ctx.font = "14px Verdana"; // Set the word size = 14px typeface = Verdana
 				ctx.fillText("0",20,20); // write the circle number.
 				ctx.fillText("1",244,20);
 				ctx.fillText("2",20,130);
 				ctx.fillText("3",244,130);
 				ctx.fillText("4",180,260);
 
+				/**
+				 *  1. circleDiscover[] = 0  the circle is not find.
+				 *  2. circleDiscover[] = 1  the circle is discovered, and should have the red circumference.
+				 *  3. circleDiscover[] = 2  the circle is done, and should be colored gray.
+				 */
 				if(circleDiscover[0] == 0){
 					ctx.beginPath();
 					ctx.arc(60,40,30,0,2 * 3.14); // the 0 circle
@@ -542,6 +539,10 @@
 					
 				}
 
+
+				/**
+				 *  When the circle d[u] is decided, it should be write.
+				 */
 				if(circledu[0] != -1){
 					ctx.fillStyle = "#000066";
 					ctx.fillText(circledu[0],60,40); // write the circle d[u] number.
@@ -573,9 +574,7 @@
 				}
 
 				
-				
-
-				if(graph == 0){
+				if(graph == 0){ // undirected graph
 					if(adjMatrix[0][1] == 1){ // circle 0 to 1
 						ctx.beginPath();
 						ctx.moveTo(90,40);
@@ -645,22 +644,20 @@
 						ctx.moveTo(205,175);
 						ctx.lineTo(158,215);
 						ctx.stroke();
-					}
+					}	
+				}else if(graph == 1){
 
-
-
-					
 				}else{
 
 				}
 
-			}
+			}// end function drawGraph()
 
 			function clearGraph(){
 				var canvas = document.getElementById("myGraph");
 				var ctx = canvas.getContext("2d");
 				ctx.clearRect(0,0,canvas.width,canvas.height);
-			}
+			}// end function clearGraph()
 
 			function next(){
 				if(mode == 0){ // simulate and test
@@ -772,6 +769,10 @@
 								document.getElementById("currentStepBFS").innerHTML = "現在佇列為空，結束BFS";
 							}// end if (BFS step for undirected graph)
 						}// end if (already decide the AdjMatrix)
+					}else if(graph == 1){ // directed graph
+
+					}else{
+
 					}
 				}// end if(Is the simulate mode.)
 			}// end function next()
@@ -789,22 +790,19 @@
 
 					}
 				}
-			}
+			}// end function connectQueueString()
 
 			function doAll(){
 				if(mode == 0){ // simulate and test
 					if(graph == 0){ // undirected graph
 						if(isDecideAdjMatrix == 1){
-							while(BFSstep != 7){
+							while(BFSstep != 7){ // the loop will stop when the BFSstep equal to seven.
 								next();
 							}
 						}
 					}
 				}
-			}
-
-			
-
+			}// end function doAll()
 
 			function clearAll(){
 				document.getElementById("0circledu").value = "";
@@ -834,8 +832,7 @@
 				connectString = "";
 				queueString = "";
 				isDecideAdjMatrix = 0;
-			}
-
+			}// end function clearAll()
 		</script>
-
 	</body>
+</html>
