@@ -1288,7 +1288,7 @@
 					document.getElementById("allState").innerHTML = "6.測驗模式結果框";
 					if(graph == 0 || graph == 1){
 						if(isDecideAdjMatrix == 1){
-							document.getElementById("currentStepBFS").innerHTML = "題目已經出好，請在5.各圓的關係，依照所給定的鄰接矩陣以及圖，完成各頂點的d[u]以及pi[u]\n注意：若d[u]為無限大請輸入-1，若pi[u]為NIL請輸入-1\n輸入完畢後，請按下確認答案鈕。";
+							document.getElementById("currentStepBFS").innerHTML = "題目已經出好，請在5.各圓的關係，依照所給定的鄰接矩陣以及圖，完成各頂點的d[u]以及pi[u]\n注意：若d[u]為無限大請輸入-1，若pi[u]為NIL請輸入-1\n輸入完畢後，請按下確認答案鈕。\n統一從頂點0開始進行，若發現頂點時有多數，依數字由小到大進行";
 							document.getElementById("testUse").style.backgroundColor = "#fff";
 							document.getElementById("relationship").style.backgroundColor = "#ff6";
 							
@@ -1309,6 +1309,7 @@
 					document.getElementById("currentStepBFS").innerHTML = "請選擇模式(模擬或是測驗)";
 					document.getElementById("currentStepBFS").style.backgroundColor = "#ff6";
 					document.getElementById("chooseMode").style.backgroundColor = "#ff6";
+					document.getElementById("allState").style.backgroundColor = "#fff";
 				}
 			}
 
@@ -1404,6 +1405,7 @@
 					document.getElementById("currentStepBFS").innerHTML = "";
 					document.getElementById("currentStepBFS").style.backgroundColor = "#fff";
 					document.getElementById("allStepBFS").style.backgroundColor = "#ff6";
+					document.getElementById("allState").style.backgroundColor = "#ff6";
 
 					var duCorrect = 0;
 					for(var i = 0; i < circledu.length; i++){
