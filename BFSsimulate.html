@@ -201,8 +201,9 @@
 			var string4 = "現在和頂點";
 			var string5 = "連接的所有還未發現的頂點放入佇列";
 			var string6 = "頂點";
-			var string7 = "用紅色框框起來，並且它的d[u] = ";
-			var string8 = " 然後pi[u] = ";
+			var string7 = "用紅色框框起來，";
+			var string7r1 = "的d[u] = ";
+			var string8 = "，然後pi[u] = ";
 			var string9 = ",最後放入佇列 ";
 			var string10 = "頂點 ";
 			var string11 = "已經搜尋完畢，塗灰。";
@@ -1120,7 +1121,7 @@
 												var lastDu = eval(document.getElementById(lastDuString).value);
 												lastDu = lastDu + 1;
 
-												connectString = connectString + "\n" + string6 + findcircle + "與" + string6 + find + "有連接 " + string7 + lastDu + string8 + findcircle;
+												connectString = connectString + "\n" + string6 + findcircle + "與" + string6 + find + "有連接 " + string7 + string6 + find + string7r1 + lastDu + string8 + findcircle;
 												circleDiscover[find] = 1;
 
 
