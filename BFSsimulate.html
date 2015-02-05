@@ -1315,7 +1315,7 @@
 			}
 
 			function giveQuestion(){
-				if(isAnswer == 0){
+				if(isAnswer == 0 && mode == 1){
 					queueString = "";
 					randomGenerateAdjMatrix();
 					if(mode == 1){ //  test mode
@@ -1401,7 +1401,8 @@
 			}// end function giveQuestion()
 
 			function checkAnswer(){
-				if(isAnswer == 0 && mode != -1 && graph != -1){
+				if(isAnswer == 0 && mode == 1 && graph != -1){
+					isAnswer = 1;
 					document.getElementById("relationship").style.backgroundColor = "#fff";
 					document.getElementById("currentStepBFS").innerHTML = "";
 					document.getElementById("currentStepBFS").style.backgroundColor = "#fff";
@@ -1444,7 +1445,7 @@
 						document.getElementById("allStepBFS").innerHTML = "你要回去再把BFS從頭到尾再看一次，並且自己出練習題練習。\n\n格子內的答案以 U / A 顯示，其中U代表你答的答案，A表示正確答案";
 					}
 				}
-				isAnswer = 1;
+				
 			}
 		</script>
 	</body>
