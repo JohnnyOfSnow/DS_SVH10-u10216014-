@@ -15,12 +15,12 @@
 			<table>
 			<tr>
 				<td><p id = "chooseMode">1.設定模式：</p></td>  <td><input type="radio" name="modeChoice1" value="模擬模式" onClick = "modeChoice();">模擬模式</td>  <td><input type="radio" name="modeChoice1" value="測驗模式" onClick = "modeChoice();">測驗模式   </td>
-				<td><input type = "button"  value = "清除" onClick = "modeClear();"></td><td><p id="mode"></p></td>
+				<td><p id="mode"></p></td>
 
 			</tr>
 			<tr>
 				<td><p id = "chooseGraph">2.設定圖形模式：</p></td>  <td><input type="radio" name="graph1" value="undirected graph" onClick = "graphChoice();">undirected graph</td>  <td><input type="radio" name="graph1" value="directed graph" onClick = "graphChoice();">directed graph   </td>
-				<td><input type = "button"  value = "清除" onClick = "graphClear();"></td><td><p id="graph"></p></td>
+				<td><p id="graph"></p></td>
 			</tr>
 			</table>
 
@@ -114,9 +114,9 @@
 			</table>
 			<table>
 				<tr>
-					<td><input type = "button"  value = "輸入完成" onClick = "decideAdjMatrix();"></td> 
-					<td><input type = "button"  value = "隨機產生" onClick = "randomGenerateAdjMatrix();"></td>
-					<td><input type = "button"  value = "清除" onClick = "clearAdjMatrix();"></td> 
+					<td><input type = "button"  value = "輸入完成" onClick = "decideAdjMatrix();" id = "inputComplete"></td> 
+					<td><input type = "button"  value = "隨機產生" onClick = "randomGenerateAdjMatrix();" id = "randomInput"></td>
+					<td><input type = "button"  value = "清除" onClick = "clearAdjMatrix();" id = "clearInput"></td> 
 				</tr>
 			</table>
 			<table>
@@ -143,9 +143,9 @@
 						<table>
 							<tr>
 								<td><p id = "simulateUse">模擬模式用按鈕：</p></td> 
-								<td><input type = "button"  value = "下一步" onClick = "next();"></td> 
-								<td><input type = "button"  value = "一次做完" onClick = "doAll();"></td>
-								<td><input type = "button"  value = "全部清除" onClick = "clearAll();"></td> 
+								<td><input type = "button"  value = "下一步" onClick = "next();"  id = "simNext"></td> 
+								<td><input type = "button"  value = "一次做完" onClick = "doAll();" id = "simAll"></td>
+								<td><input type = "button"  value = "全部清除" onClick = "clearAll();" id = "simClear"></td> 
 							</tr>
 						</table>
 					</td>
@@ -153,9 +153,9 @@
 						<table>	
 							<tr>
 								<td><p id = "testUse">測驗模式用按鈕：</p></td> 
-								<td><input type = "button"  value = "開始出題" onClick = "giveQuestion();"></td> 
-								<td><input type = "button"  value = "確認答案" onClick = "checkAnswer();"></td>
-								<td><input type = "button"  value = "全部清除" onClick = "clearAll();"></td> 
+								<td><input type = "button"  value = "開始出題" onClick = "giveQuestion();" id = "testStart"></td> 
+								<td><input type = "button"  value = "確認答案" onClick = "checkAnswer();" id = "testCheck"></td>
+								<td><input type = "button"  value = "全部清除" onClick = "clearAll();" id = "testClear"></td> 
 							</tr>
 						</table>	
 					</td>
@@ -232,7 +232,7 @@
 				for (var i = 0; i < form.graph1.length; i++) {
 					if ( form.graph1[i].checked ) {
 						graph = i;
-						result.innerHTML = form.graph1[i].value;
+						result.innerHTML = "you selected " + form.graph1[i].value;
 						
 					}
 				}
@@ -1040,6 +1040,9 @@
 			}// end function clearGraph()
 
 			function next(){
+				document.getElementById("inputComplete").disabled = true;
+				document.getElementById("randomInput").disabled = true;
+				document.getElementById("clearInput").disabled = true;
 				if(mode == 0){ // simulate and test
 					if(graph == 0 || graph == 1){ // undirected graph
 						if(isDecideAdjMatrix == 1 && BFSstep != 8){
@@ -1243,7 +1246,7 @@
 			function init(){
 				document.getElementById("nowState").innerHTML = "提示使用者操作窗";
 				document.getElementById("allState").innerHTML = "";
-				document.getElementById("currentStepBFS").innerHTML = "請選擇模式(模擬或是測驗)";
+				document.getElementById("currentStepBFS").innerHTML = "這是一個關於BFS(廣度優先搜尋)的程式\n一開始，請選擇模式(模擬或是測驗)";
 				document.getElementById("currentStepBFS").style.backgroundColor = "#ff6";
 				document.getElementById("chooseMode").style.backgroundColor = "#fff";
 				document.getElementById("chooseGraph").style.backgroundColor = "#fff";
@@ -1253,7 +1256,15 @@
 				document.getElementById("relationship").style.backgroundColor = "#fff";
 				document.getElementById("allStepBFS").style.backgroundColor = "#fff";
 				document.getElementById("allStepBFS").innerHTML = "";
-					
+				document.getElementById("inputComplete").disabled=true;
+				document.getElementById("randomInput").disabled=true;
+				document.getElementById("clearInput").disabled=true;
+				document.getElementById("simNext").disabled=true;
+				document.getElementById("simAll").disabled=true;
+				document.getElementById("simClear").disabled=true;
+				document.getElementById("testStart").disabled=true;
+				document.getElementById("testCheck").disabled=true;
+				document.getElementById("testClear").disabled=true;		
 
 				for(var i = 0; i < circledu.length; i++){
 					var duIdString = i + "circledu";
@@ -1271,10 +1282,19 @@
 					document.getElementById("allState").innerHTML = "6.所有步驟：";
 					if(graph == 0 || graph == 1){
 						if(isDecideAdjMatrix == 1){
+							document.getElementById("inputComplete").disabled = false;
+							document.getElementById("randomInput").disabled = false;
+							document.getElementById("clearInput").disabled = false;
+							document.getElementById("simNext").disabled = false;
+							document.getElementById("simAll").disabled = false;
+							document.getElementById("simClear").disabled = false;
 							document.getElementById("setAdj").style.backgroundColor = "#fff";
 							document.getElementById("simulateUse").style.backgroundColor = "#ff6";
 							document.getElementById("currentStepBFS").innerHTML = "你已經設定好鄰接矩陣了，並且在綠框中看到你的鄰接矩陣畫成圖的樣子\n現在，你可以將游標移到模擬模式用按鈕，進行下一步、一次做完的按鈕操作\n\n若你對圖形不滿意可以再自行輸入資料後按下輸入完成鈕，或是按下隨機產生鈕，產生一個鄰接矩陣。";
 						}else{
+							document.getElementById("inputComplete").disabled = false;
+							document.getElementById("randomInput").disabled = false;
+							document.getElementById("clearInput").disabled = false;
 							document.getElementById("chooseGraph").style.backgroundColor = "#fff";
 							document.getElementById("currentStepBFS").innerHTML = "請請移動游標到3.輸入鄰接矩陣資料\n--->你可以自行輸入資料後按下輸入完成鈕\n--->或是按下隨機產生鈕，產生一個鄰接矩陣。";
 							document.getElementById("setAdj").style.backgroundColor = "#ff6";
@@ -1289,11 +1309,17 @@
 					document.getElementById("allState").innerHTML = "6.測驗模式結果框";
 					if(graph == 0 || graph == 1){
 						if(isDecideAdjMatrix == 1){
+							document.getElementById("testStart").disabled = false;
+							document.getElementById("testCheck").disabled = false;
+							document.getElementById("testClear").disabled = false;
 							document.getElementById("currentStepBFS").innerHTML = "題目已經出好，請在5.各圓的關係，依照所給定的鄰接矩陣以及圖，完成各頂點的d[u]以及pi[u]\n注意：若d[u]為無限大請輸入-1，若pi[u]為NIL請輸入-1\n輸入完畢後，請按下確認答案鈕。\n統一從頂點0開始進行，若發現頂點時有多數，依數字由小到大進行";
 							document.getElementById("testUse").style.backgroundColor = "#fff";
 							document.getElementById("relationship").style.backgroundColor = "#ff6";
 							
 						}else{
+							document.getElementById("testStart").disabled = false;
+							document.getElementById("testCheck").disabled = false;
+							document.getElementById("testClear").disabled = false;
 							document.getElementById("chooseGraph").style.backgroundColor = "#fff";
 							document.getElementById("currentStepBFS").innerHTML = "請移動游標到測驗模式用按鈕，按下開始出題";
 							document.getElementById("testUse").style.backgroundColor = "#ff6";
@@ -1307,7 +1333,7 @@
 				}else{
 					document.getElementById("nowState").innerHTML = "提示使用者操作窗";
 					document.getElementById("allState").innerHTML = "";
-					document.getElementById("currentStepBFS").innerHTML = "請選擇模式(模擬或是測驗)";
+					document.getElementById("currentStepBFS").innerHTML = "這是一個關於BFS(廣度優先搜尋)的程式\n一開始，請選擇模式(模擬或是測驗)";
 					document.getElementById("currentStepBFS").style.backgroundColor = "#ff6";
 					document.getElementById("chooseMode").style.backgroundColor = "#ff6";
 					document.getElementById("allState").style.backgroundColor = "#fff";
