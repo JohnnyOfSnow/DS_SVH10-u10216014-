@@ -1249,6 +1249,7 @@
 			function init(){
 				document.getElementById("nowState").innerHTML = "提示使用者操作窗";
 				document.getElementById("allState").innerHTML = "";
+				document.getElementById("allState").style.backgroundColor = "#fff"
 				document.getElementById("currentStepBFS").innerHTML = "這是一個關於BFS(廣度優先搜尋)的程式\n一開始，請選擇模式(模擬或是測驗)";
 				document.getElementById("currentStepBFS").style.backgroundColor = "#ff6";
 				document.getElementById("chooseMode").style.backgroundColor = "#fff";
@@ -1274,8 +1275,11 @@
 					var piuIdString = i + "circlepiu";
 					document.getElementById(duIdString).style.backgroundColor = "#fff";
 					document.getElementById(piuIdString).style.backgroundColor = "#fff";
-					
+					document.getElementById(duIdString).value = "";
+					document.getElementById(piuIdString).value = "";
 				}// end for loop
+				isAnswer = 0;
+				allStepString = "";
 			}
 
 			function process(){
@@ -1474,7 +1478,7 @@
 						document.getElementById("allStepBFS").innerHTML = "你要回去再把BFS從頭到尾再看一次，並且自己出練習題練習。\n\n格子內的答案以 U / A 顯示，其中U代表你答的答案，A表示正確答案";
 					}
 				}
-				
+				drawGraph();
 			}
 		</script>
 	</body>
